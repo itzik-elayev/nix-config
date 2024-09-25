@@ -27,6 +27,7 @@
       k3d
       kubectx
       ctlptl
+      ocm
 
       # text file utils
       jq
