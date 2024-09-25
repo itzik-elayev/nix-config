@@ -30,7 +30,7 @@
 
       # text file utils
       jq
-      yq
+      yq-go
       ripgrep
 
       # terminal related stuff

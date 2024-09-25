@@ -43,8 +43,9 @@
       };
 
       NSGlobalDomain = {
+        ApplePressAndHoldEnabled = false;
         InitialKeyRepeat = 15;
-        KeyRepeat = 12;
+        KeyRepeat = 2;
       };
     };
   };
