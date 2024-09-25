@@ -1,0 +1,51 @@
+{
+  "profiles": [
+    {
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "Switch between HE <-> EN (ctrl+space)",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "input_sources": [{ "language": "en" }],
+                    "type": "input_source_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": { "mandatory": ["left_control"] }
+                },
+                "to": [{ "select_input_source": { "language": "he" } }],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "input_sources": [{ "language": "he" }],
+                    "type": "input_source_if"
+                  }
+                ],
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": { "mandatory": ["left_control"] }
+                },
+                "to": [{ "select_input_source": { "language": "en" } }],
+                "type": "basic"
+              }
+            ]
+          }
+        ]
+      },
+      "name": "Default profile",
+      "selected": true,
+      "simple_modifications": [
+        {
+          "from": { "key_code": "non_us_backslash" },
+          "to": [{ "key_code": "grave_accent_and_tilde" }]
+        }
+      ]
+    }
+  ]
+}
