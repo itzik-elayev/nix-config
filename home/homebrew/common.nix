@@ -3,4 +3,5 @@
   "karabiner-elements"
   "bitwarden"
   "spotify"
+  "raycast"
 ]
