@@ -4,4 +4,5 @@
   "bitwarden"
   "spotify"
   "raycast"
+  "alt-tab"
 ]
