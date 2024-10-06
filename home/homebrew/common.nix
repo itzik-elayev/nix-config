@@ -5,4 +5,5 @@
   "spotify"
   "raycast"
   "alt-tab"
+  "notion"
 ]
