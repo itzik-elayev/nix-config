@@ -15,6 +15,7 @@
       awscli2
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
       terraform
+      terraform-ls
 
       # container related packages
       dive
@@ -96,6 +97,8 @@
 
         code = "open -a 'Visual Studio Code'";
         idea = "open -a 'IntelliJ IDEA'";
+
+        flushdns = "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
       };
     };
 
