@@ -6,4 +6,5 @@
   "raycast"
   "alt-tab"
   "notion"
+  "ledger-live"
 ]
