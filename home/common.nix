@@ -45,6 +45,7 @@
       fzf
       unzip
       darwin.iproute2mac
+      gh
 
       # comms
       slack
