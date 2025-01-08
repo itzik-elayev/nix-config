@@ -4,6 +4,7 @@
       git
       wget
       curl
+      cmake
     ];
 
     shells = [pkgs.fish];

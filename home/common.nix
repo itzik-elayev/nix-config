@@ -29,6 +29,7 @@
       kubectx
       ctlptl
       ocm
+      vals
 
       # text file utils
       jq
@@ -49,6 +50,9 @@
 
       # comms
       slack
+
+      # networking
+      inetutils
 
       # fonts
       meslo-lgs-nf
