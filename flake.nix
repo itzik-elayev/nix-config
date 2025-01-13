@@ -61,6 +61,7 @@
             home-manager.extraSpecialArgs = {
               inherit username;
             };
+            home-manager.backupFileExtension = "backup";
           }
           nix-homebrew.darwinModules.nix-homebrew
           {
