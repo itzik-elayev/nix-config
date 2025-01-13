@@ -35,6 +35,7 @@
       jq
       yq-go
       ripgrep
+      xmlstarlet
 
       # terminal related stuff
       iterm2
