@@ -18,6 +18,7 @@
       terraform-ls
 
       # container related packages
+      podman
       dive
       trivy
 
