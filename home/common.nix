@@ -9,6 +9,8 @@
     packages = with pkgs; [
       # programming languages related packages
       go
+      golangci-lint
+      go-task
       python3
 
       # cloud tools packages
@@ -16,9 +18,12 @@
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
       terraform
       terraform-ls
+      packer
 
       # container related packages
-      podman
+      docker
+      colima
+      skopeo
       dive
       trivy
 
@@ -31,6 +36,7 @@
       ctlptl
       ocm
       vals
+      argocd
 
       # text file utils
       jq
@@ -49,6 +55,7 @@
       unzip
       darwin.iproute2mac
       gh
+      jfrog-cli
 
       # comms
       slack
