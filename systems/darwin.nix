@@ -22,4 +22,14 @@
 
     casks = import ../home/homebrew/common.nix ++ import ../home/homebrew/work.nix;
   };
+
+  system = {
+    activationScripts = {
+      extraActivation = {
+        text = ''
+          hidutil property --set '{"CapsLockDelayOverride":10}'
+        '';
+      };
+    };
+  };
 }
