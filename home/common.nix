@@ -37,6 +37,7 @@
       ocm
       vals
       argocd
+      tilt
 
       # text file utils
       jq
