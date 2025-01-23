@@ -15,6 +15,7 @@
 
       # cloud tools packages
       awscli2
+      amazon-ecr-credential-helper
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
       terraform
       terraform-ls

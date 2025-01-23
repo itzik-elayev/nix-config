@@ -5,6 +5,7 @@
       wget
       curl
       cmake
+      (pkgs.writeShellScriptBin "docker-credential-aws-sso-ecr" (builtins.readFile ./local-pkgs/docker-credential-aws-sso-ecr))
     ];
 
     shells = [pkgs.fish];
