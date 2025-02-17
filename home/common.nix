@@ -16,7 +16,9 @@
       # cloud tools packages
       awscli2
       amazon-ecr-credential-helper
+      ssm-session-manager-plugin
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
+      azure-cli
       terraform
       terraform-ls
       packer
@@ -39,6 +41,8 @@
       vals
       argocd
       tilt
+      consul
+      vault
 
       # text file utils
       jq
