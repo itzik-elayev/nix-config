@@ -62,6 +62,7 @@
       darwin.iproute2mac
       gh
       jfrog-cli
+      postgresql
 
       # comms
       slack
@@ -83,7 +84,10 @@
     enable = true;
 
     configFile = {
-      "karabiner/karabiner.json".source = ./configs/karabiner/karabiner.json;
+      "karabiner/karabiner.json" = {
+        source = ./configs/karabiner/karabiner.json;
+        force = true;
+      };
     };
   };
 
@@ -92,6 +96,7 @@
   programs = {
     home-manager = {
       enable = true;
+      
     };
 
     fish = {
