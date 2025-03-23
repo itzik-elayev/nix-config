@@ -55,13 +55,15 @@
         modules = [
           ./systems/common.nix
           home-manager.darwinModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${username} = import ./home/common.nix;
-            home-manager.extraSpecialArgs = {
-              inherit username;
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${username} = import ./home/common.nix;
+              backupFileExtension = "bk";
+              extraSpecialArgs = {
+                inherit username;
+              };
             };
-            home-manager.backupFileExtension = "bk";
           }
           nix-homebrew.darwinModules.nix-homebrew
           {
