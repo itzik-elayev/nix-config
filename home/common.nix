@@ -35,6 +35,7 @@
       kubernetes-helm
       k9s
       k3d
+      kind
       kubectx
       ctlptl
       ocm
