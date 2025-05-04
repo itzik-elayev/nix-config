@@ -7,13 +7,10 @@
     stateVersion = "23.11";
 
     packages = with pkgs; [
-      # programming languages related packages
       go
       golangci-lint
       go-task
       python3
-
-      # cloud tools packages
       awscli2
       amazon-ecr-credential-helper
       ssm-session-manager-plugin
@@ -22,15 +19,11 @@
       terraform
       terraform-ls
       packer
-
-      # container related packages
       docker
       colima
       skopeo
       dive
       trivy
-
-      # kubernetes related packages
       kubectl
       kubernetes-helm
       k9s
@@ -44,35 +37,25 @@
       tilt
       consul
       vault
-
-      # text file utils
       jq
       yq-go
       ripgrep
       xmlstarlet
-
-      # terminal related stuff
       iterm2
       eza
       tmux
       nnn
-
-      # misc
       fzf
       unzip
       darwin.iproute2mac
       gh
       jfrog-cli
       postgresql
-
-      # comms
       slack
-
-      # networking
       inetutils
-
-      # fonts
       meslo-lgs-nf
+      lsyncd
+      visualvm
     ];
 
     sessionVariables = {
