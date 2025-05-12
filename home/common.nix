@@ -47,7 +47,7 @@
       nnn
       fzf
       unzip
-      darwin.iproute2mac
+      iproute2mac
       gh
       jfrog-cli
       postgresql

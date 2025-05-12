@@ -12,19 +12,12 @@
     shells = [pkgs.fish];
   };
 
-  services = {
-    nix-daemon = {
-      enable = true;
-    };
-  };
-
   nix = {
     settings = {
       experimental-features = "nix-command flakes";
     };
 
     package = pkgs.nixVersions.latest;
-    configureBuildUsers = true;
   };
 
   nixpkgs = {
