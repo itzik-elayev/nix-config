@@ -11,6 +11,7 @@
       golangci-lint
       go-task
       python3
+      python3Packages.pip
       awscli2
       amazon-ecr-credential-helper
       ssm-session-manager-plugin
