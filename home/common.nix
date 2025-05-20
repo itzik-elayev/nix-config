@@ -57,6 +57,7 @@
       meslo-lgs-nf
       lsyncd
       visualvm
+      nil
     ];
 
     sessionVariables = {
