@@ -19,7 +19,6 @@
       terraform-ls
       packer
       docker
-      colima
       skopeo
       dive
       trivy
