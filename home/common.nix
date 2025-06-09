@@ -55,8 +55,6 @@
       lsyncd
       visualvm
       uv
-      npx
-      awsume
     ];
 
     sessionVariables = {
