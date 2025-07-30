@@ -55,6 +55,7 @@
       lsyncd
       visualvm
       uv
+      nodejs
     ];
 
     sessionVariables = {
