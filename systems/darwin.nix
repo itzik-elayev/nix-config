@@ -1,4 +1,4 @@
-{ self, pkgs, ... }: {
+{ self, pkgs, username, ... }: {
   nix = {
     linux-builder = {
       enable = true;
@@ -31,5 +31,7 @@
         '';
       };
     };
+
+    primaryUser = username;
   };
 }
