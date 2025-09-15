@@ -57,6 +57,7 @@
       visualvm
       uv
       nodejs
+      linode-cli
     ];
 
     sessionVariables = {
