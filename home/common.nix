@@ -58,6 +58,7 @@
       uv
       nodejs
       linode-cli
+      dynamodb-local
     ];
 
     sessionVariables = {
@@ -104,7 +105,7 @@
         ls = "eza --all --icons=always --git-repos";
         ll = "ls -la";
 
-        rebuild = "sudo darwin-rebuild switch --flake .";
+        nix-rebuild = "sudo darwin-rebuild switch --flake .";
 
         code = "open -a 'Visual Studio Code'";
         idea = "open -a 'IntelliJ IDEA'";
