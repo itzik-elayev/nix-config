@@ -59,6 +59,7 @@
       nodejs
       linode-cli
       dynamodb-local
+      graphviz
     ];
 
     sessionVariables = {
