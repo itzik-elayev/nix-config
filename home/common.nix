@@ -23,6 +23,7 @@
       skopeo
       dive
       trivy
+      snyk
       kubectl
       kubernetes-helm
       k9s
