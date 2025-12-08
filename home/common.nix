@@ -14,7 +14,7 @@
       amazon-ecr-credential-helper
       ssm-session-manager-plugin
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
-#      azure-cli -- https://github.com/nixos/nixpkgs/issues/437044
+      azure-cli
       terraform
       terraform-ls
       tflint
