@@ -61,6 +61,7 @@
       linode-cli
       dynamodb-local
       graphviz
+      cilium-cli
     ];
 
     sessionVariables = {
