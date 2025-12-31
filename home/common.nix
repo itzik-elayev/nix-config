@@ -62,6 +62,8 @@
       dynamodb-local
       graphviz
       cilium-cli
+      pre-commit
+      helm-docs
     ];
 
     sessionVariables = {
