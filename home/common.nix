@@ -25,6 +25,7 @@
       trivy
       snyk
       kubectl
+      kubectl-node-shell
       kubernetes-helm
       k9s
       k3d
