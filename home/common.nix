@@ -27,6 +27,7 @@
       kubectl
       kubectl-node-shell
       kubernetes-helm
+      helm-docs
       k9s
       k3d
       kind
@@ -64,7 +65,7 @@
       graphviz
       cilium-cli
       pre-commit
-      helm-docs
+      git-filter-repo
     ];
 
     sessionVariables = {
