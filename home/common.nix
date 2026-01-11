@@ -34,6 +34,7 @@
       kubectx
       ctlptl
       ocm
+      crc
       vals
       argocd
       tilt
