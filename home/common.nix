@@ -67,6 +67,7 @@
       cilium-cli
       pre-commit
       git-filter-repo
+      bat
     ];
 
     sessionVariables = {
@@ -104,6 +105,8 @@
       '';
 
       shellAliases = {
+        cat = "bat --paging=never";
+
         k = "kubectl";
         kctx = "kubectx";
         kns = "kubens";
@@ -119,6 +122,7 @@
         idea = "open -a 'IntelliJ IDEA'";
 
         flushdns = "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
+        fixcaps = "hidutil property --set '{\"CapsLockDelayOverride\":10}'";
       };
     };
 
