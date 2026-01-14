@@ -68,6 +68,8 @@
       pre-commit
       git-filter-repo
       bat
+      claude-code
+      claude-monitor
     ];
 
     sessionVariables = {
