@@ -9,7 +9,7 @@
       (pkgs.writeShellScriptBin "docker-credential-aws-sso-ecr" (builtins.readFile ./local-pkgs/docker-credential-aws-sso-ecr))
       unixtools.watch
       nil
-      nixfmt-rfc-style
+      nixfmt
     ];
 
     shells = [pkgs.fish];

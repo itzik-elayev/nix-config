@@ -131,9 +131,8 @@
     git = {
       enable = true;
 
-      userName = "Itzhak Alayev";
-
-      extraConfig = {
+      settings = {
+        user.name = "Itzhak Alayev";
         push.autoSetupRemote = true;
         pull.rebase = false;
         color.ui = "auto";
