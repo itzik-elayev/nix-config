@@ -70,6 +70,7 @@
       bat
       claude-code
       claude-monitor
+      flutter
     ];
 
     sessionVariables = {
