@@ -18,6 +18,7 @@
   nix = {
     settings = {
       experimental-features = "nix-command flakes";
+      trusted-users = ["root" username];
     };
 
     package = pkgs.nixVersions.latest;

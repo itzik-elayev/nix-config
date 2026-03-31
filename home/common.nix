@@ -26,6 +26,8 @@
       snyk
       kubectl
       kubectl-node-shell
+      kubectl-neat
+      kubectl-validate
       kubernetes-helm
       helm-docs
       k9s
@@ -70,7 +72,9 @@
       bat
       claude-code
       claude-monitor
+      codex
       flutter
+      cmatrix
     ];
 
     sessionVariables = {
