@@ -25,6 +25,7 @@
       trivy
       snyk
       kubectl
+      kubecolor
       kubectl-node-shell
       kubectl-neat
       kubectl-validate
@@ -114,6 +115,7 @@
       shellAliases = {
         cat = "bat --paging=never";
 
+        kubectl = "kubecolor";
         k = "kubectl";
         kctx = "kubectx";
         kns = "kubens";
