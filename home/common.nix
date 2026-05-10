@@ -135,7 +135,7 @@
       interactiveShellInit = ''
         bind \e\x7F 'backward-kill-word'
 
-        if status is-login
+        if status is-login; and test "$TERMINAL_EMULATOR" != "JetBrains-JediTerm"
           cd ~/Desktop
         end
       '';
