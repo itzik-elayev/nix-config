@@ -4,34 +4,14 @@
       "complex_modifications": {
         "rules": [
           {
-            "description": "Switch between HE <-> EN (ctrl+space)",
+            "description": "Cycle through input sources (ctrl+space)",
             "manipulators": [
               {
-                "conditions": [
-                  {
-                    "input_sources": [{ "language": "en" }],
-                    "type": "input_source_if"
-                  }
-                ],
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": { "mandatory": ["left_control"] }
                 },
-                "to": [{ "select_input_source": { "language": "he" } }],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "input_sources": [{ "language": "he" }],
-                    "type": "input_source_if"
-                  }
-                ],
-                "from": {
-                  "key_code": "spacebar",
-                  "modifiers": { "mandatory": ["left_control"] }
-                },
-                "to": [{ "select_input_source": { "language": "en" } }],
+                "to": [{ "key_code": "fn" }],
                 "type": "basic"
               }
             ]
