@@ -1,12 +1,12 @@
-{ self, pkgs, username, ... }: {
+{ username, ... }: {
   nix = {
     linux-builder = {
       enable = true;
     };
 
-    extraOptions = ''
-      extra-platforms = x86_64-darwin aarch64-darwin
-    '';
+    settings = {
+      extra-platforms = ["x86_64-darwin" "aarch64-darwin"];
+    };
   };
 
   nixpkgs = {
@@ -20,18 +20,22 @@
       cleanup = "zap";
     };
 
-    casks = import ../home/homebrew/common.nix ++ import ../home/homebrew/work.nix;
+    casks = import ../homebrew/personal.nix ++ import ../homebrew/work.nix;
+  };
+
+  launchd.user.agents.fixcaps = {
+    serviceConfig = {
+      ProgramArguments = [
+        "/usr/bin/hidutil"
+        "property"
+        "--set"
+        ''{"CapsLockDelayOverride":10}''
+      ];
+      RunAtLoad = true;
+    };
   };
 
   system = {
-    activationScripts = {
-      extraActivation = {
-        text = ''
-          hidutil property --set '{"CapsLockDelayOverride":10}'
-        '';
-      };
-    };
-
     primaryUser = username;
   };
 }

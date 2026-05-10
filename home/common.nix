@@ -5,25 +5,45 @@
     stateVersion = "23.11";
 
     packages = with pkgs; [
+      # Languages & runtimes
       go
-      golangci-lint
-      go-task
       python3
       python3Packages.pip
+      uv
+      nodejs
+      flutter
+
+      # Go tooling
+      golangci-lint
+      go-task
+
+      # Cloud providers
       awscli2
       amazon-ecr-credential-helper
       ssm-session-manager-plugin
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])
       azure-cli
+      linode-cli
+
+      # Infrastructure
       terraform
       terraform-ls
       tflint
       packer
+      consul
+      vault
+      vals
+
+      # Containers
       docker
       skopeo
       dive
+
+      # Security & scanning
       trivy
       snyk
+
+      # Kubernetes
       kubectl
       kubecolor
       kubectl-node-shell
@@ -38,48 +58,57 @@
       ctlptl
       ocm
       crc
-      vals
       argocd
       tilt
-      consul
-      vault
+      cilium-cli
+
+      # Data & formats
       jq
       yq-go
-      ripgrep
       xmlstarlet
-      iterm2
+      postgresql
+      dynamodb-local
+      graphviz
+
+      # CLI tools
+      ripgrep
+      bat
       eza
       tmux
       nnn
       fzf
       unzip
       iproute2mac
-      gh
-      jfrog-cli
-      postgresql
-      slack
       inetutils
-      meslo-lgs-nf
       lsyncd
-      visualvm
-      uv
-      nodejs
-      linode-cli
-      dynamodb-local
-      graphviz
-      cilium-cli
+
+      # Git
+      gh
       pre-commit
       git-filter-repo
-      bat
+
+      # Dev tools
+      jfrog-cli
+      visualvm
+
+      # AI
       claude-code
       claude-monitor
       codex
-      flutter
+
+      # Apps
+      iterm2
+      slack
+
+      # Fonts
+      meslo-lgs-nf
+
+      # Fun
       cmatrix
     ];
 
     sessionVariables = {
-      SHELL = "fish";
+      SHELL = "${pkgs.fish}/bin/fish";
       EDITOR = "vim";
     };
   };
@@ -98,18 +127,17 @@
   fonts.fontconfig.enable = true;
 
   programs = {
-    home-manager = {
-      enable = true;
-      
-    };
+    home-manager.enable = true;
 
     fish = {
       enable = true;
 
-      plugins = [];
-
-      shellInit = ''
+      interactiveShellInit = ''
         bind \e\x7F 'backward-kill-word'
+
+        if status is-login
+          cd ~/Desktop
+        end
       '';
 
       shellAliases = {
@@ -125,7 +153,7 @@
         ls = "eza --all --icons=always --git-repos";
         ll = "ls -la";
 
-        nix-rebuild = "sudo darwin-rebuild switch --flake .";
+        nix-rebuild = "sudo darwin-rebuild switch --flake ~/Desktop/nix-config";
 
         code = "open -a 'Visual Studio Code'";
         idea = "open -a 'IntelliJ IDEA'";
@@ -140,6 +168,7 @@
 
       settings = {
         user.name = "Itzhak Alayev";
+        user.email = "startukk@gmail.com";
         push.autoSetupRemote = true;
         pull.rebase = false;
         color.ui = "auto";
