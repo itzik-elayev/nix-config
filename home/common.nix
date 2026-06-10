@@ -105,11 +105,13 @@
 
       # Fun
       cmatrix
+
+      # LSP servers
+      yaml-language-server
     ];
 
     sessionVariables = {
       SHELL = "${pkgs.fish}/bin/fish";
-      EDITOR = "vim";
     };
   };
 
@@ -163,6 +165,28 @@
       };
     };
 
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
+      initLua = builtins.readFile ./configs/nvim/init.lua;
+      plugins = with pkgs.vimPlugins; [
+        nightfox-nvim
+        vim-airline
+        vim-surround
+        vim-commentary
+        vim-fugitive
+        vim-gitgutter
+        fzf-vim
+        vim-yaml
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp-buffer
+        cmp-path
+      ];
+    };
+
     git = {
       enable = true;
 
@@ -172,7 +196,6 @@
         push.autoSetupRemote = true;
         pull.rebase = false;
         color.ui = "auto";
-        core.editor = "vim";
       };
     };
   };
