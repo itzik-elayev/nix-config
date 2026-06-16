@@ -72,7 +72,6 @@
 
       # CLI tools
       ripgrep
-      bat
       eza
       tmux
       nnn
@@ -163,6 +162,11 @@
         flushdns = "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
         fixcaps = "hidutil property --set '{\"CapsLockDelayOverride\":10}'";
       };
+    };
+
+    bat = {
+      enable = true;
+      config.theme = "Dracula";
     };
 
     neovim = {
