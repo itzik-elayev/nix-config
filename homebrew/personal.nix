@@ -1,10 +1,9 @@
 [
+  "iterm2"
   "google-chrome"
   "karabiner-elements"
   "bitwarden"
   "spotify"
-  "raycast"
-  "alt-tab"
   "notion"
-  "ledger-live"
+  "visual-studio-code"
 ]

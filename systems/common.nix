@@ -28,6 +28,17 @@
     config = {
       allowUnfree = true;
     };
+
+    overlays = [
+      (final: prev: {
+        # packer's vendored go-m1cpu segfaults on M4/M5 chips during checkPhase
+        # (missing null-check for an IOKit property that's absent on newer Apple Silicon).
+        # Remove this once nixpkgs bumps go-m1cpu to >=0.2.1.
+        packer = prev.packer.overrideAttrs (old: {
+          doCheck = false;
+        });
+      })
+    ];
   };
 
   system = {

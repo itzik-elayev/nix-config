@@ -47,7 +47,7 @@
     homebrew-cask,
     ... 
   }: let
-    username = "ialayev";
+    username = "itzhakalayev";
 
     mkDarwinSystem = { username, additionalModules ? [] }:
       nix-darwin.lib.darwinSystem {
@@ -86,7 +86,7 @@
       };
   in {
     darwinConfigurations = {
-      "tlv-mptvy" = mkDarwinSystem {
+      "mbpro" = mkDarwinSystem {
         inherit username;
         additionalModules = [ ./systems/darwin.nix ];
       };

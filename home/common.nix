@@ -19,6 +19,7 @@
 
       # Cloud providers
       awscli2
+      saml2aws
       amazon-ecr-credential-helper
       ssm-session-manager-plugin
       (google-cloud-sdk.withExtraComponents [google-cloud-sdk.components.gke-gcloud-auth-plugin])

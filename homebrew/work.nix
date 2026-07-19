@@ -1,3 +1,2 @@
 [
-    "intellij-idea"
 ]
