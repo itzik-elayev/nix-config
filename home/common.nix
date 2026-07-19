@@ -175,6 +175,8 @@
       defaultEditor = true;
       vimAlias = true;
       viAlias = true;
+      withRuby = false;
+      withPython3 = false;
       initLua = builtins.readFile ./configs/nvim/init.lua;
       plugins = with pkgs.vimPlugins; [
         nightfox-nvim
@@ -202,6 +204,37 @@
         pull.rebase = false;
         color.ui = "auto";
       };
+    };
+
+    vscode = {
+      enable = true;
+      # VS Code.app itself is installed via the homebrew cask; this only manages settings.json.
+      package = null;
+
+      profiles.default.userSettings = {
+        "claudeCode.preferredLocation" = "panel";
+        "geminicodeassist.displayInlineContextHint" = false;
+        "terminal.integrated.mouseWheelScrollSensitivity" = 3;
+        "terminal.integrated.gpuAcceleration" = "off";
+
+        "terminal.integrated.defaultProfile.osx" = "fish";
+        "terminal.integrated.profiles.osx" = {
+          fish = {
+            path = "${pkgs.fish}/bin/fish";
+          };
+        };
+      };
+
+      profiles.default.keybindings = [
+        {
+          key = "shift+enter";
+          command = "workbench.action.terminal.sendSequence";
+          when = "terminalFocus";
+          args = {
+            text = "\r";
+          };
+        }
+      ];
     };
   };
 }

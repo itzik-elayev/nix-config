@@ -74,4 +74,16 @@
       };
     };
   };
+
+  # nix-darwin only manages UserShell for accounts in users.knownUsers, which its
+  # own docs warn against adding admin accounts to (that list also drives account
+  # deletion). Set the login shell for the primary account by hand instead.
+  system.activationScripts.postActivation.text = ''
+    fishPath="${pkgs.fish}/bin/fish"
+    currentShell=$(dscl . -read "/Users/${username}" UserShell 2>/dev/null | awk '{print $2}')
+    if [ "$currentShell" != "$fishPath" ]; then
+      echo "setting login shell for ${username} to fish..." >&2
+      dscl . -create "/Users/${username}" UserShell "$fishPath"
+    fi
+  '';
 }
