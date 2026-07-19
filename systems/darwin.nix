@@ -20,7 +20,7 @@
       cleanup = "zap";
     };
 
-    casks = import ../homebrew/personal.nix ++ import ../homebrew/work.nix;
+    casks = import ./casks.nix;
   };
 
   launchd.user.agents.fixcaps = {
