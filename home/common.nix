@@ -137,7 +137,7 @@
       interactiveShellInit = ''
         bind \e\x7F 'backward-kill-word'
 
-        if status is-login; and test "$TERMINAL_EMULATOR" != "JetBrains-JediTerm"
+        if status is-login; and test "$TERM_PROGRAM" != "vscode"
           cd ~/Desktop
         end
       '';
