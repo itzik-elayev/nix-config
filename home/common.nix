@@ -216,6 +216,9 @@
         "geminicodeassist.displayInlineContextHint" = false;
         "terminal.integrated.mouseWheelScrollSensitivity" = 3;
         "terminal.integrated.gpuAcceleration" = "off";
+        "window.nativeTabs" = true;
+        "window.zoomLevel" = 2;
+        "editor.fontFamily" = "'MesloLGS NF', Menlo, Monaco, 'Courier New', monospace";
 
         "terminal.integrated.defaultProfile.osx" = "fish";
         "terminal.integrated.profiles.osx" = {

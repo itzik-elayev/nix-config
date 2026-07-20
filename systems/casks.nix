@@ -2,6 +2,7 @@
   "iterm2"
   "google-chrome"
   "karabiner-elements"
+  "mos"
   "bitwarden"
   "spotify"
   "notion"

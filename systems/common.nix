@@ -58,6 +58,29 @@
         InitialKeyRepeat = 15;
         KeyRepeat = 2;
       };
+
+      CustomUserPreferences = {
+        "com.caldis.Mos" = {
+          reverse = true;
+          reverseHorizontal = true;
+          reverseVertical = true;
+
+          smooth = true;
+          smoothHorizontal = true;
+          smoothVertical = true;
+          smoothSimTrackpad = false;
+
+          speed = 5.344623659412745;
+          step = 10.0;
+          deadZone = 1;
+          duration = 1;
+
+          allowlist = false;
+          hideStatusItem = false;
+          updateCheckOnAppStart = false;
+          updateIncludingBetaVersion = false;
+        };
+      };
     };
   };
 
