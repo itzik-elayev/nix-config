@@ -113,6 +113,10 @@
     sessionVariables = {
       SHELL = "${pkgs.fish}/bin/fish";
     };
+
+    sessionPath = [
+      "$HOME/go/bin"
+    ];
   };
 
   xdg = {
