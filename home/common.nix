@@ -16,6 +16,7 @@
       # Go tooling
       golangci-lint
       go-task
+      gopls
 
       # Cloud providers
       awscli2
@@ -216,13 +217,32 @@
       package = null;
 
       profiles.default.userSettings = {
-        "claudeCode.preferredLocation" = "panel";
+        "claudeCode.preferredLocation" = "terminal";
         "geminicodeassist.displayInlineContextHint" = false;
         "terminal.integrated.mouseWheelScrollSensitivity" = 3;
         "terminal.integrated.gpuAcceleration" = "off";
         "window.nativeTabs" = true;
         "window.zoomLevel" = 2;
         "editor.fontFamily" = "'MesloLGS NF', Menlo, Monaco, 'Courier New', monospace";
+
+        "terraform.languageServer.path" = "${pkgs.terraform-ls}/bin/terraform-ls";
+        "[terraform]" = {
+          "editor.formatOnSave" = true;
+          "editor.defaultFormatter" = "hashicorp.terraform";
+        };
+        "[terraform-vars]" = {
+          "editor.formatOnSave" = true;
+          "editor.defaultFormatter" = "hashicorp.terraform";
+        };
+
+        "go.useLanguageServer" = true;
+        "go.alternateTools" = {
+          "gopls" = "${pkgs.gopls}/bin/gopls";
+        };
+        "[go]" = {
+          "editor.formatOnSave" = true;
+          "editor.defaultFormatter" = "golang.go";
+        };
 
         "terminal.integrated.defaultProfile.osx" = "fish";
         "terminal.integrated.profiles.osx" = {
