@@ -5,6 +5,7 @@
   "mos"
   "bitwarden"
   "docker-desktop"
+  "caffeine"
   "spotify"
   "notion"
   "visual-studio-code"
