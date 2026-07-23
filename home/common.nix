@@ -216,13 +216,22 @@
       # VS Code.app itself is installed via the homebrew cask; this only manages settings.json.
       package = null;
 
+      # Only the extensions explicitly requested/discussed; other manually-installed
+      # extensions (e.g. from an onboarding script) are left unmanaged.
+      profiles.default.extensions = with pkgs.vscode-extensions; [
+        hashicorp.terraform
+        tim-koehler.helm-intellisense
+        golang.go
+      ];
+
       profiles.default.userSettings = {
         "claudeCode.preferredLocation" = "terminal";
         "geminicodeassist.displayInlineContextHint" = false;
         "terminal.integrated.mouseWheelScrollSensitivity" = 3;
         "terminal.integrated.gpuAcceleration" = "off";
         "window.nativeTabs" = true;
-        "window.zoomLevel" = 2;
+        "workbench.editor.enablePreview" = false;
+        "window.zoomLevel" = 1;
         "editor.fontFamily" = "'MesloLGS NF', Menlo, Monaco, 'Courier New', monospace";
 
         "terraform.languageServer.path" = "${pkgs.terraform-ls}/bin/terraform-ls";

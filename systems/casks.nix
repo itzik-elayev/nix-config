@@ -4,6 +4,7 @@
   "karabiner-elements"
   "mos"
   "bitwarden"
+  "docker-desktop"
   "spotify"
   "notion"
   "visual-studio-code"
