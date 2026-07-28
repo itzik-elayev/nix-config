@@ -1,4 +1,4 @@
-{ pkgs, username, ... }: {
+{ pkgs, pkgs-helm3, username, ... }: {
   home = {
     username = username;
 
@@ -35,6 +35,7 @@
       consul
       vault
       vals
+      cloudflared
 
       # Containers
       docker
@@ -51,8 +52,9 @@
       kubectl-node-shell
       kubectl-neat
       kubectl-validate
-      kubernetes-helm
+      pkgs-helm3.kubernetes-helm
       helm-docs
+      fluxcd
       k9s
       k3d
       kind
@@ -129,6 +131,10 @@
         force = true;
       };
     };
+
+    dataFile = {
+      "helm/plugins/helm-cm-push".source = "${pkgs-helm3.kubernetes-helmPlugins.helm-cm-push}/helm-cm-push";
+    };
   };
 
   fonts.fontconfig.enable = true;
@@ -167,6 +173,20 @@
 
         flushdns = "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
         fixcaps = "hidutil property --set '{\"CapsLockDelayOverride\":10}'";
+      };
+
+      functions = {
+        kctx-rm = ''
+          set -l ctx $argv[1]
+          set -l cluster (kubectl config view -o jsonpath="{.contexts[?(@.name==\"$ctx\")].context.cluster}")
+          set -l user (kubectl config view -o jsonpath="{.contexts[?(@.name==\"$ctx\")].context.user}")
+
+          test -z "$cluster" && echo "no such context: $ctx" && return 1
+
+          kubectl config delete-context $ctx
+          kubectl config delete-cluster $cluster
+          kubectl config delete-user $user
+        '';
       };
     };
 

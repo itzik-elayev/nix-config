@@ -6,6 +6,13 @@
       url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     };
 
+    # nixpkgs bumped kubernetes-helm from 3.20.2 to 4.2.0, and Helm 4's new
+    # plugin manifest schema breaks plugins that haven't migrated yet (e.g.
+    # helm-cm-push). Pin to the last revision before that bump.
+    nixpkgs-helm3 = {
+      url = "github:NixOS/nixpkgs/a50faf4c47054e640207d2f0c7d00ed8b84e0999";
+    };
+
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,14 +41,16 @@
   outputs = inputs@{
     self,
     nixpkgs,
+    nixpkgs-helm3,
     nix-darwin,
     home-manager,
     nix-homebrew,
     homebrew-core,
     homebrew-cask,
-    ... 
+    ...
   }: let
     username = "itzhakalayev";
+    pkgs-helm3 = nixpkgs-helm3.legacyPackages.aarch64-darwin;
 
     mkDarwinSystem = { username, additionalModules ? [] }:
       nix-darwin.lib.darwinSystem {
@@ -55,7 +64,7 @@
               users.${username} = import ./home/common.nix;
               backupFileExtension = "bk";
               extraSpecialArgs = {
-                inherit username;
+                inherit username pkgs-helm3;
               };
             };
           }

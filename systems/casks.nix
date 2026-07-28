@@ -9,4 +9,7 @@
   "spotify"
   "notion"
   "visual-studio-code"
+  "pgadmin4"
+  "chatgpt"
+  "claude"
 ]
