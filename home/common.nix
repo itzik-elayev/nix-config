@@ -10,7 +10,10 @@
       python3
       python3Packages.pip
       uv
-      nodejs
+      nodejs # also provides the `corepack` command
+      pnpm
+      bun
+      maven
       flutter
 
       # Go tooling
@@ -84,6 +87,7 @@
       iproute2mac
       inetutils
       lsyncd
+      stu
 
       # Git
       gh
@@ -254,7 +258,18 @@
         "window.zoomLevel" = 1;
         "editor.fontFamily" = "'MesloLGS NF', Menlo, Monaco, 'Courier New', monospace";
 
-        "terraform.languageServer.path" = "${pkgs.terraform-ls}/bin/terraform-ls";
+        # Widen explorer tree indentation (default 8) so nested folder levels
+        # are easier to tell apart, and always show the indent guide lines.
+        "workbench.tree.indent" = 20;
+        "workbench.tree.renderIndentGuides" = "always";
+
+        # Let the extension use its own bundled, version-matched terraform-ls.
+        # Overriding the path to nix's terraform-ls pinned an older version
+        # (0.38.7 vs the 0.39.0 the extension ships) and broke go-to-definition
+        # / go-to-references. The extension bundles the server, so no override
+        # is needed here.
+        "terraform.languageServer.enable" = true;
+        "terraform.codelens.referenceCount" = true;
         "[terraform]" = {
           "editor.formatOnSave" = true;
           "editor.defaultFormatter" = "hashicorp.terraform";
