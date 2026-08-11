@@ -12,4 +12,5 @@
   "pgadmin4"
   "chatgpt"
   "claude"
+  "tailscale-app"
 ]

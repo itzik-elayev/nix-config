@@ -102,6 +102,7 @@
       claude-code
       claude-monitor
       codex
+      opencode
 
       # Apps
       iterm2
@@ -174,6 +175,10 @@
 
         code = "open -a 'Visual Studio Code'";
         idea = "open -a 'IntelliJ IDEA'";
+
+        # The macOS GUI app bundles the CLI (same binary, runs in CLI mode from
+        # a terminal) and it's the one that talks to the GUI app's daemon.
+        tailscale = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
 
         flushdns = "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
         fixcaps = "hidutil property --set '{\"CapsLockDelayOverride\":10}'";
