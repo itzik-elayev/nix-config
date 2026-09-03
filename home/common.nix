@@ -1,4 +1,10 @@
-{ pkgs, pkgs-helm3, username, ... }: {
+{ pkgs, pkgs-helm3, username, ... }:
+let
+  # Single source of engineering preferences in this repo, linked into every
+  # agent's global-instructions path.
+  agentInstructions = ./configs/coding-instructions.md;
+in
+{
   home = {
     username = username;
 
@@ -58,7 +64,6 @@
       pkgs-helm3.kubernetes-helm
       helm-docs
       fluxcd
-      k9s
       k3d
       kind
       kubectx
@@ -88,6 +93,7 @@
       inetutils
       lsyncd
       stu
+      s5cmd
 
       # Git
       gh
@@ -103,6 +109,7 @@
       claude-monitor
       codex
       opencode
+      opencode-claude-auth
 
       # Apps
       iterm2
@@ -135,11 +142,19 @@
         source = ./configs/karabiner/karabiner.json;
         force = true;
       };
+
+      "opencode/AGENTS.md".source = agentInstructions;
     };
 
     dataFile = {
       "helm/plugins/helm-cm-push".source = "${pkgs-helm3.kubernetes-helmPlugins.helm-cm-push}/helm-cm-push";
     };
+  };
+
+  home.file = {
+    ".claude/CLAUDE.md".source = agentInstructions;
+    ".codex/AGENTS.md".source = agentInstructions;
+    ".cursor/rules/personal.mdc".source = agentInstructions;
   };
 
   fonts.fontconfig.enable = true;
@@ -202,6 +217,11 @@
     bat = {
       enable = true;
       config.theme = "Dracula";
+    };
+
+    k9s = {
+      enable = true;
+      settings.k9s.ui.headless = true;
     };
 
     neovim = {
@@ -268,6 +288,10 @@
         "workbench.tree.indent" = 20;
         "workbench.tree.renderIndentGuides" = "always";
 
+        # Don't auto-reveal (jump to) the active file in the explorer on
+        # tab switch/close.
+        "explorer.autoReveal" = false;
+
         # Let the extension use its own bundled, version-matched terraform-ls.
         # Overriding the path to nix's terraform-ls pinned an older version
         # (0.38.7 vs the 0.39.0 the extension ships) and broke go-to-definition
@@ -310,7 +334,14 @@
             text = "\r";
           };
         }
-      ];
+      ];  
+    };
+
+    opencode = {
+      enable = true;
+      settings = {
+        plugin = ["opencode-claude-auth"];
+      };
     };
   };
 }

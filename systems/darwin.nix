@@ -21,6 +21,10 @@
     };
 
     casks = import ./casks.nix;
+
+    masApps = {
+      Amphetamine = 937984704;
+    };
   };
 
   launchd.user.agents.fixcaps = {
