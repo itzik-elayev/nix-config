@@ -20,6 +20,13 @@
       cleanup = "zap";
     };
 
+    # nix-homebrew keeps these tapped (mutableTaps = false); list them so
+    # `brew bundle cleanup --zap` doesn't try to untap them every activation.
+    taps = [
+      "homebrew/core"
+      "homebrew/cask"
+    ];
+
     casks = import ./casks.nix;
 
     masApps = {

@@ -14,6 +14,7 @@ Clean code, per Robert C. Martin's *Clean Code*:
 - Names: intention-revealing, pronounceable, searchable. No abbreviations, no single letters except trivial loop indices. No noise words (`data`, `info`, `manager`) unless they add meaning.
 - Function args: fewer is better. 0-2 ideal, 3 needs justification, avoid boolean flag args (split into two functions instead).
 - No side effects hidden behind a name that doesn't say so.
+- Stanza formatting: one blank line between each logical step in a function (error check, declaration, mutation, side effect, return) — no dense unbroken blocks.
 - Prefer exceptions over error codes; don't return null, don't pass null.
 - DRY — no duplication, but per the "similar code" rule above, don't force an abstraction over things that only look similar today.
 - No comments by default. Comments are a failure to express intent in code — first try to make the code self-explanatory (rename, extract function) before reaching for a comment.

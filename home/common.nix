@@ -41,8 +41,6 @@ in
       terraform-ls
       tflint
       packer
-      consul
-      vault
       vals
       cloudflared
 
