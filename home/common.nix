@@ -95,6 +95,10 @@ in
       s5cmd
       csvlens
 
+      # Editor (config managed imperatively via a nvim distribution, not nix)
+      neovim
+      fd
+
       # Git
       gh
       pre-commit
@@ -127,6 +131,8 @@ in
 
     sessionVariables = {
       SHELL = "${pkgs.fish}/bin/fish";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
     };
 
     sessionPath = [
@@ -144,6 +150,13 @@ in
       };
 
       "opencode/AGENTS.md".source = agentInstructions;
+
+      # recursive = per-file symlinks so the dir stays writable for lazy.nvim's
+      # runtime plugin state and lazy-lock.json.
+      "nvim" = {
+        source = ./configs/nvim;
+        recursive = true;
+      };
     };
 
     dataFile = {
@@ -188,6 +201,9 @@ in
 
         nix-rebuild = "sudo darwin-rebuild switch --flake ~/Desktop/nix-config";
 
+        vim = "nvim";
+        vi = "nvim";
+
         code = "open -a 'Visual Studio Code'";
         idea = "open -a 'IntelliJ IDEA'";
 
@@ -222,30 +238,6 @@ in
     k9s = {
       enable = true;
       settings.k9s.ui.headless = true;
-    };
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      viAlias = true;
-      withRuby = false;
-      withPython3 = false;
-      initLua = builtins.readFile ./configs/nvim/init.lua;
-      plugins = with pkgs.vimPlugins; [
-        nightfox-nvim
-        vim-airline
-        vim-surround
-        vim-commentary
-        vim-fugitive
-        vim-gitgutter
-        fzf-vim
-        vim-yaml
-        nvim-cmp
-        cmp-nvim-lsp
-        cmp-buffer
-        cmp-path
-      ];
     };
 
     git = {
