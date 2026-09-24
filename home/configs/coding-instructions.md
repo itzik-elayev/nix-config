@@ -1,5 +1,17 @@
 # Personal engineering preferences
 
+<!-- TOP:START -->
+## TOP RULES — always apply
+
+- Comments: only when non-obvious; max 2 lines; explain *why* not *what*; no ticket/conversation refs; stand alone.
+- No magic numbers or strings — extract named constants.
+- Functions small, do one thing; args 0-2, no boolean-flag args (split instead).
+- DRY: reuse/consolidate existing code before adding; don't force abstraction over things only alike today.
+- No stray debug prints; log at right level with source component + key-value context.
+- Output: terse, bullets/code over prose, no hedging or fluff.
+- Commits: Conventional Commits, imperative subject, body only when the why isn't obvious.
+<!-- TOP:END -->
+
 ## Process
 
 - TDD: write the failing test first, then the minimum code to pass it, then refactor.
