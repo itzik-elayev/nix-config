@@ -1,16 +1,6 @@
-{ username, ... }: {
-  nix = {
-    linux-builder = {
-      enable = true;
-    };
-
-    settings = {
-      extra-platforms = ["x86_64-darwin" "aarch64-darwin"];
-    };
-  };
-
+{ username, system, ... }: {
   nixpkgs = {
-    hostPlatform = "aarch64-darwin";
+    hostPlatform = system;
   };
 
   homebrew = {

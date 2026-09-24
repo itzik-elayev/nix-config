@@ -265,8 +265,8 @@ in
       # VS Code.app itself is installed via the homebrew cask; this only manages settings.json.
       package = null;
 
-      # Only the extensions explicitly requested/discussed; other manually-installed
-      # extensions (e.g. from an onboarding script) are left unmanaged.
+      # Curated subset only; other manually-installed extensions (e.g. from an
+      # onboarding script) stay unmanaged.
       profiles.default.extensions = with pkgs.vscode-extensions; [
         hashicorp.terraform
         tim-koehler.helm-intellisense
@@ -292,11 +292,8 @@ in
         # tab switch/close.
         "explorer.autoReveal" = false;
 
-        # Let the extension use its own bundled, version-matched terraform-ls.
-        # Overriding the path to nix's terraform-ls pinned an older version
-        # (0.38.7 vs the 0.39.0 the extension ships) and broke go-to-definition
-        # / go-to-references. The extension bundles the server, so no override
-        # is needed here.
+        # Use the extension's bundled, version-matched terraform-ls; overriding
+        # to nix's older build broke go-to-definition/references.
         "terraform.languageServer.enable" = true;
         "terraform.codelens.referenceCount" = true;
         "[terraform]" = {

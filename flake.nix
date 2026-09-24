@@ -50,11 +50,12 @@
     ...
   }: let
     username = "itzhakalayev";
-    pkgs-helm3 = nixpkgs-helm3.legacyPackages.aarch64-darwin;
+    system = "aarch64-darwin";
+    pkgs-helm3 = nixpkgs-helm3.legacyPackages.${system};
 
     mkDarwinSystem = { username, additionalModules ? [] }:
       nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit self; inherit username; };
+        specialArgs = { inherit self username system; };
         modules = [
           ./systems/common.nix
           home-manager.darwinModules.home-manager {
@@ -72,7 +73,6 @@
           {
             nix-homebrew = {
               enable = true;
-              enableRosetta = true;
               user = username;
 
               taps = {

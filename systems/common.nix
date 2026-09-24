@@ -1,4 +1,8 @@
-{ self, username, pkgs, ... }: {
+{ self, username, pkgs, ... }:
+let
+  homeDir = "/Users/${username}";
+in
+{
   environment = {
     systemPackages = with pkgs; [
       git
@@ -31,9 +35,8 @@
 
     overlays = [
       (final: prev: {
-        # packer's vendored go-m1cpu segfaults on M4/M5 chips during checkPhase
-        # (missing null-check for an IOKit property that's absent on newer Apple Silicon).
-        # Remove this once nixpkgs bumps go-m1cpu to >=0.2.1.
+        # packer's vendored go-m1cpu segfaults on M4/M5 during checkPhase (missing
+        # IOKit null-check). Drop once nixpkgs bumps go-m1cpu >= 0.2.1.
         packer = prev.packer.overrideAttrs (old: {
           doCheck = false;
         });
@@ -93,20 +96,24 @@
   users = {
     users = {
       ${username} = {
-        home = "/Users/${username}";
+        home = homeDir;
       };
     };
   };
 
-  # nix-darwin only manages UserShell for accounts in users.knownUsers, which its
-  # own docs warn against adding admin accounts to (that list also drives account
-  # deletion). Set the login shell for the primary account by hand instead.
+  # users.<name>.shell only applies to users.knownUsers, which nix-darwin warns
+  # against for admin accounts (it also drives deletion). Set the shell by hand.
   system.activationScripts.postActivation.text = ''
     fishPath="${pkgs.fish}/bin/fish"
-    currentShell=$(dscl . -read "/Users/${username}" UserShell 2>/dev/null | awk '{print $2}')
+    currentShell=$(dscl . -read "${homeDir}" UserShell 2>/dev/null | awk '{print $2}')
     if [ "$currentShell" != "$fishPath" ]; then
       echo "setting login shell for ${username} to fish..." >&2
-      dscl . -create "/Users/${username}" UserShell "$fishPath"
+      dscl . -create "${homeDir}" UserShell "$fishPath"
     fi
+
+    # nix-darwin kills Dock each activation to reload system.defaults; macOS 26
+    # launchd can fail to respawn it (nix-darwin#1856), freezing Spaces. Force up.
+    userId=$(id -u "${username}")
+    launchctl kickstart "gui/$userId/com.apple.Dock.agent" || true
   '';
 }
