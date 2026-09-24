@@ -77,6 +77,7 @@ in
       yq-go
       xmlstarlet
       postgresql
+      (callPackage ./pkgs/pgtui.nix {})
       dynamodb-local
       graphviz
 
@@ -92,6 +93,7 @@ in
       lsyncd
       stu
       s5cmd
+      csvlens
 
       # Git
       gh
