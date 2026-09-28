@@ -84,9 +84,9 @@ in
       # CLI tools
       ripgrep
       eza
-      tmux
       nnn
       fzf
+      sesh
       unzip
       iproute2mac
       inetutils
@@ -99,10 +99,29 @@ in
       neovim
       fd
 
+      # nvim LSP/formatters/linters — mason is disabled, tools come from PATH.
+      # (gopls, golangci-lint, terraform-ls, nil, yaml-language-server, tflint,
+      # nixfmt already provided above / in systemPackages.)
+      tree-sitter
+      gofumpt
+      delve
+      pyright
+      ruff
+      marksman
+      hadolint
+      shfmt
+      stylua
+      prettierd
+      dockerfile-language-server
+      vscode-langservers-extracted
+      bash-language-server
+      markdownlint-cli2
+
       # Git
       gh
       pre-commit
       git-filter-repo
+      lazygit
 
       # Dev tools
       jfrog-cli
@@ -180,6 +199,7 @@ in
 
       interactiveShellInit = ''
         bind \e\x7F 'backward-kill-word'
+        bind \e\x08 'backward-kill-word'
 
         if status is-login; and test "$TERM_PROGRAM" != "vscode"
           cd ~/Desktop
@@ -238,6 +258,24 @@ in
     k9s = {
       enable = true;
       settings.k9s.ui.headless = true;
+    };
+
+    zoxide.enable = true;
+
+    tmux = {
+      enable = true;
+      mouse = true;
+      baseIndex = 1;
+      keyMode = "vi";
+      terminal = "tmux-256color";
+      escapeTime = 10;
+      extraConfig = ''
+        set -ga terminal-overrides ",*256col*:Tc"
+
+        # prefix+o: fuzzy project switcher; -d hides a dir when a session for it
+        # already exists (no folder+window duplicate)
+        bind-key o display-popup -E -w 60% -h 60% "sesh connect \"$(sesh list -d --icons | fzf --ansi --no-sort --prompt '⚡ ')\""
+      '';
     };
 
     git = {
