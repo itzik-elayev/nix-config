@@ -10,6 +10,7 @@
 - No stray debug prints; log at right level with source component + key-value context.
 - Output: terse, bullets/code over prose, no hedging or fluff.
 - Commits: Conventional Commits, imperative subject, body only when the why isn't obvious.
+- Docs/comments stand alone: no session/ticket refs, no real customer/backend names as examples — write for a cold reader.
 <!-- TOP:END -->
 
 ## Process
@@ -37,6 +38,15 @@ Clean code, per Robert C. Martin's *Clean Code*:
 - No commented-out code, no journal comments, no closing-brace comments.
 - No magic numbers or strings — extract to named constants.
 - Booleans named with `is`/`has`/`should`/`can` prefix — no bare adjectives (`valid`, `active`) as variable names.
+
+## Writing for the repo, not the session
+
+When editing or authoring code comments, documentation, runbooks, or shared instruction files (AGENTS.md, CLAUDE.md, READMEs, design docs — not commit messages, PR descriptions, or chat replies, which may reference the current task) — write for a reader who has none of this conversation's context and is opening the file cold, possibly months later.
+
+- Never write "as we found", "this session", "earlier in this conversation", "the user asked", or a ticket/PR number as the only explanation for a rule. State the rule and its rationale so it stands alone without that context.
+- Never use a real customer, tenant, or backend name as a worked example — not even a genuinely representative one. Invent a generic placeholder (acme-corp, cluster-a/cluster-b, `<name>`) or reuse a placeholder convention the doc already has.
+- When a real environment's data grounds a formula, threshold, or constant, keep what was observed and the derivation — but strip its specific identity from the prose. The reasoning must be fully intact without knowing which cluster it came from.
+- Before finishing an edit to a shared doc, do one pass specifically hunting for: session-specific phrasing, real customer/backend names used as examples, and any claim that only makes sense to someone who was in this conversation.
 
 ## Planning output
 
