@@ -84,9 +84,9 @@ in
       # CLI tools
       ripgrep
       eza
+      tmux
       nnn
       fzf
-      sesh
       unzip
       iproute2mac
       inetutils
@@ -95,33 +95,10 @@ in
       s5cmd
       csvlens
 
-      # Editor (config managed imperatively via a nvim distribution, not nix)
-      neovim
-      fd
-
-      # nvim LSP/formatters/linters — mason is disabled, tools come from PATH.
-      # (gopls, golangci-lint, terraform-ls, nil, yaml-language-server, tflint,
-      # nixfmt already provided above / in systemPackages.)
-      tree-sitter
-      gofumpt
-      delve
-      pyright
-      ruff
-      marksman
-      hadolint
-      shfmt
-      stylua
-      prettierd
-      dockerfile-language-server
-      vscode-langservers-extracted
-      bash-language-server
-      markdownlint-cli2
-
       # Git
       gh
       pre-commit
       git-filter-repo
-      lazygit
 
       # Dev tools
       jfrog-cli
@@ -150,8 +127,6 @@ in
 
     sessionVariables = {
       SHELL = "${pkgs.fish}/bin/fish";
-      EDITOR = "nvim";
-      VISUAL = "nvim";
     };
 
     sessionPath = [
@@ -169,13 +144,6 @@ in
       };
 
       "opencode/AGENTS.md".source = agentInstructions;
-
-      # recursive = per-file symlinks so the dir stays writable for lazy.nvim's
-      # runtime plugin state and lazy-lock.json.
-      "nvim" = {
-        source = ./configs/nvim;
-        recursive = true;
-      };
     };
 
     dataFile = {
@@ -199,7 +167,6 @@ in
 
       interactiveShellInit = ''
         bind \e\x7F 'backward-kill-word'
-        bind \e\x08 'backward-kill-word'
 
         if status is-login; and test "$TERM_PROGRAM" != "vscode"
           cd ~/Desktop
@@ -220,9 +187,6 @@ in
         ll = "ls -la";
 
         nix-rebuild = "sudo darwin-rebuild switch --flake ~/Desktop/nix-config";
-
-        vim = "nvim";
-        vi = "nvim";
 
         code = "open -a 'Visual Studio Code'";
         idea = "open -a 'IntelliJ IDEA'";
@@ -260,22 +224,93 @@ in
       settings.k9s.ui.headless = true;
     };
 
-    zoxide.enable = true;
-
-    tmux = {
+    zed-editor = {
       enable = true;
-      mouse = true;
-      baseIndex = 1;
-      keyMode = "vi";
-      terminal = "tmux-256color";
-      escapeTime = 10;
-      extraConfig = ''
-        set -ga terminal-overrides ",*256col*:Tc"
+      # Zed.app is installed via the homebrew cask; this only manages settings.
+      # Extensions are declared here but downloaded by Zed from its registry.
+      package = null;
+      # Go/Python/JS/TS/JSON/YAML/Markdown have built-in language support; these
+      # cover the rest of the stack (LSPs are downloaded by Zed per extension).
+      extensions = [
+        "terraform"
+        "helm"
+        "k8s-crd-lsp"
+        "kubernetes-snippets"
+        "dockerfile"
+        "docker-compose"
+        "nix"
+        "toml"
+        "sql"
+        "basher"
+        "make"
+        "github-actions"
+      ];
+      userSettings = {
+        auto_update = false;
 
-        # prefix+o: fuzzy project switcher; -d hides a dir when a session for it
-        # already exists (no folder+window duplicate)
-        bind-key o display-popup -E -w 60% -h 60% "sesh connect \"$(sesh list -d --icons | fzf --ansi --no-sort --prompt '⚡ ')\""
-      '';
+        buffer_font_family = "MesloLGS NF";
+        ui_font_family = "MesloLGS NF";
+        buffer_font_fallbacks = ["Menlo" "Monaco" "Courier New" "monospace"];
+
+        icon_theme = "Zed (Default)";
+        theme = {
+          mode = "dark";
+          light = "One Light";
+          dark = "Ayu Dark";
+        };
+
+        git.inline_blame.enabled = true;
+        agent.dock = "right";
+
+        use_system_window_tabs = true;
+        preview_tabs.enabled = false;
+        minimap.show = "always";
+        project_panel.auto_reveal_entries = false;
+        session.trust_all_worktrees = true;
+
+        agent_servers = {
+          cursor.type = "registry";
+          "claude-acp".type = "registry";
+        };
+
+        # Use the nix-provided language servers instead of Zed's downloaded
+        # copies, for the LSPs this config installs. Extensions whose server
+        # isn't packaged here stay Zed-managed.
+        lsp = {
+          "gopls".binary.path = "${pkgs.gopls}/bin/gopls";
+          "terraform-ls".binary.path = "${pkgs.terraform-ls}/bin/terraform-ls";
+          "nil".binary.path = "${pkgs.nil}/bin/nil";
+          "yaml-language-server" = {
+            binary.path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+            # Schema-based completion/validation for k8s manifests and CI YAML.
+            settings.yaml.schemaStore.enable = true;
+          };
+        };
+      };
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
+      withRuby = false;
+      withPython3 = false;
+      initLua = builtins.readFile ./configs/nvim/init.lua;
+      plugins = with pkgs.vimPlugins; [
+        nightfox-nvim
+        vim-airline
+        vim-surround
+        vim-commentary
+        vim-fugitive
+        vim-gitgutter
+        fzf-vim
+        vim-yaml
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp-buffer
+        cmp-path
+      ];
     };
 
     git = {

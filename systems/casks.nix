@@ -8,6 +8,8 @@
   "spotify"
   "notion"
   "visual-studio-code"
+  "zed"
+  "pgadmin4"
   "chatgpt"
   "claude"
   "tailscale-app"
