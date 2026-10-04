@@ -3,6 +3,8 @@ let
   # Single source of engineering preferences in this repo, linked into every
   # agent's global-instructions path.
   agentInstructions = ./configs/coding-instructions.md;
+
+  yamlLanguageServer = "${pkgs.yaml-language-server}/bin/yaml-language-server";
 in
 {
   home = {
@@ -168,7 +170,8 @@ in
       interactiveShellInit = ''
         bind \e\x7F 'backward-kill-word'
 
-        if status is-login; and test "$TERM_PROGRAM" != "vscode"
+        # Only redirect fresh terminals; editors spawn shells already in the project dir.
+        if status is-login; and test "$PWD" = "$HOME"
           cd ~/Desktop
         end
       '';
@@ -267,6 +270,19 @@ in
         minimap.show = "always";
         project_panel.auto_reveal_entries = false;
         session.trust_all_worktrees = true;
+        terminal.working_directory = "current_project_directory";
+
+        # Chart templates share the .yaml extension with plain YAML; route them
+        # to helm-ls so `{{ }}` isn't parsed as invalid YAML.
+        file_types.Helm = [
+          "**/templates/**/*.tpl"
+          "**/templates/**/*.yaml"
+          "**/templates/**/*.yml"
+          "**/helmfile.d/**/*.yaml"
+          "**/helmfile.d/**/*.yml"
+          "**/values*.yaml"
+          "**/values*.yml"
+        ];
 
         agent_servers = {
           cursor.type = "registry";
@@ -280,8 +296,15 @@ in
           "gopls".binary.path = "${pkgs.gopls}/bin/gopls";
           "terraform-ls".binary.path = "${pkgs.terraform-ls}/bin/terraform-ls";
           "nil".binary.path = "${pkgs.nil}/bin/nil";
+          "helm" = {
+            binary = {
+              path = "${pkgs.helm-ls}/bin/helm_ls";
+              arguments = ["serve"];
+            };
+            settings.yamlls.path = yamlLanguageServer;
+          };
           "yaml-language-server" = {
-            binary.path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
+            binary.path = yamlLanguageServer;
             # Schema-based completion/validation for k8s manifests and CI YAML.
             settings.yaml.schemaStore.enable = true;
           };
