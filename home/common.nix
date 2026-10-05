@@ -4,6 +4,8 @@ let
   # agent's global-instructions path.
   agentInstructions = ./configs/coding-instructions.md;
 
+  nixConfigDir = "~/Desktop/nix-config";
+
   yamlLanguageServer = "${pkgs.yaml-language-server}/bin/yaml-language-server";
 in
 {
@@ -189,7 +191,8 @@ in
         ls = "eza --all --icons=always --git-repos";
         ll = "ls -la";
 
-        nix-rebuild = "sudo darwin-rebuild switch --flake ~/Desktop/nix-config";
+        nix-rebuild = "sudo darwin-rebuild switch --flake ${nixConfigDir}";
+        nix-build-system = "nix build ${nixConfigDir}#darwinConfigurations.(scutil --get LocalHostName).system --out-link ${nixConfigDir}/.nix-build/result";
 
         code = "open -a 'Visual Studio Code'";
         idea = "open -a 'IntelliJ IDEA'";
@@ -247,6 +250,7 @@ in
         "basher"
         "make"
         "github-actions"
+        "git-firefly"
       ];
       userSettings = {
         auto_update = false;
@@ -271,6 +275,10 @@ in
         project_panel.auto_reveal_entries = false;
         session.trust_all_worktrees = true;
         terminal.working_directory = "current_project_directory";
+        lsp_results_location = "picker";
+
+        # The Nix extension starts both nil and nixd; nil alone covers this setup.
+        languages.Nix.language_servers = ["nil" "!nixd"];
 
         # Chart templates share the .yaml extension with plain YAML; route them
         # to helm-ls so `{{ }}` isn't parsed as invalid YAML.
@@ -289,12 +297,14 @@ in
           "claude-acp".type = "registry";
         };
 
-        # Use the nix-provided language servers instead of Zed's downloaded
-        # copies, for the LSPs this config installs. Extensions whose server
-        # isn't packaged here stay Zed-managed.
+        # Prefer nix-provided servers over Zed downloads. A `binary.path` override
+        # drops the extension's default launch args, so servers needing them set `arguments`.
         lsp = {
           "gopls".binary.path = "${pkgs.gopls}/bin/gopls";
-          "terraform-ls".binary.path = "${pkgs.terraform-ls}/bin/terraform-ls";
+          "terraform-ls".binary = {
+            path = "${pkgs.terraform-ls}/bin/terraform-ls";
+            arguments = ["serve"];
+          };
           "nil".binary.path = "${pkgs.nil}/bin/nil";
           "helm" = {
             binary = {
@@ -304,7 +314,10 @@ in
             settings.yamlls.path = yamlLanguageServer;
           };
           "yaml-language-server" = {
-            binary.path = yamlLanguageServer;
+            binary = {
+              path = yamlLanguageServer;
+              arguments = ["--stdio"];
+            };
             # Schema-based completion/validation for k8s manifests and CI YAML.
             settings.yaml.schemaStore.enable = true;
           };
@@ -419,7 +432,7 @@ in
             text = "\r";
           };
         }
-      ];  
+      ];
     };
 
     opencode = {
